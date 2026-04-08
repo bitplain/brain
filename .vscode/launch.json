@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Brain: Preview site",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "python3 scripts/zensical_cli.py serve --dev-addr 127.0.0.1:8000",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Brain: Build site",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "python3 scripts/zensical_cli.py build",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

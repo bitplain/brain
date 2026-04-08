@@ -2,3 +2,5 @@
 site/
 __pycache__/
 *.pyc
+.tools/zensical/
+.tools/zensical-test/

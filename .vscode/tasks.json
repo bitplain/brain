@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Brain: Bootstrap Zensical",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "scripts/zensical_cli.py",
+        "bootstrap"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Brain: Preview site",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "scripts/zensical_cli.py",
+        "serve",
+        "--dev-addr",
+        "127.0.0.1:8000"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Brain: Build site",
+      "type": "shell",
+      "command": "python3",
+      "args": [
+        "scripts/zensical_cli.py",
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
