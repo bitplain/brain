@@ -46,9 +46,13 @@ class KnowledgeBaseBuildTests(unittest.TestCase):
         )
 
         cls.home = (SITE_DIR / "index.html").read_text(encoding="utf-8")
+        cls.instructions = (SITE_DIR / "instructions" / "index.html").read_text(encoding="utf-8")
         cls.rdp = (SITE_DIR / "instructions" / "remote-desktop" / "index.html").read_text(
             encoding="utf-8"
         )
+        cls.vipnet = (
+            SITE_DIR / "instructions" / "vipnet-client-windows" / "index.html"
+        ).read_text(encoding="utf-8")
 
     def test_home_page_uses_dark_branding_and_explicit_navigation(self) -> None:
         self.assertIn('data-md-color-scheme="slate"', self.home)
@@ -70,6 +74,22 @@ class KnowledgeBaseBuildTests(unittest.TestCase):
         self.assertNotIn('src="../assets/instructions/rdp-icon.png"', self.rdp)
         self.assertNotIn('src="../assets/instructions/rdp-login.png"', self.rdp)
         self.assertIn("Инструкции", self.rdp)
+
+    def test_vipnet_page_is_listed_in_the_instructions_section(self) -> None:
+        self.assertIn("Установка ViPNet Client на Windows", self.instructions)
+        self.assertIn('href="vipnet-client-windows/"', self.instructions)
+        self.assertIn("Установка ViPNet Client на Windows", self.home)
+
+    def test_vipnet_page_uses_local_assets_and_masks_sensitive_data(self) -> None:
+        self.assertIn("Установка ViPNet Client на Windows", self.vipnet)
+        self.assertIn('../../assets/instructions/vipnet-client-01.png', self.vipnet)
+        self.assertIn('../../assets/instructions/vipnet-client-02.png', self.vipnet)
+        self.assertIn('../../assets/instructions/vipnet-client-04.png', self.vipnet)
+        self.assertIn('../../assets/instructions/vipnet-client-08.png', self.vipnet)
+        self.assertIn('../../assets/instructions/vipnet-client-10.png', self.vipnet)
+        self.assertNotIn("Alexander", self.vipnet)
+        self.assertNotIn("audit", self.vipnet)
+        self.assertNotIn("n.mirzoyan", self.vipnet)
 
 
 if __name__ == "__main__":
