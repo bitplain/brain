@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import platform
+import json
+import os
 import shutil
 import subprocess
 import sys
@@ -22,6 +24,13 @@ ASSETS = {
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CACHE_ROOT = REPO_ROOT / ".tools" / "zensical" / VERSION
+DEPENDENCIES = [
+    ("click", "8.1.8"),
+    ("deepmerge", "2.0"),
+    ("markdown", "3.7"),
+    ("pygments", "2.20.0"),
+    ("pymdown-extensions", "10.21.2"),
+]
 
 
 def normalize_platform() -> tuple[str, str]:
@@ -58,6 +67,93 @@ def download_file(url: str, destination: Path) -> None:
         shutil.copyfileobj(response, output)
 
 
+def next_stale_path(path: Path) -> Path:
+    candidate = path.with_name(f"{path.name}.stale-root")
+    index = 2
+    while candidate.exists():
+        candidate = path.with_name(f"{path.name}.stale-root-{index}")
+        index += 1
+    return candidate
+
+
+def dependency_marker_path(extract_dir: Path) -> Path:
+    return extract_dir / ".deps_installed"
+
+
+def dependency_module_name(package_name: str) -> str:
+    aliases = {
+        "pymdown-extensions": "pymdownx",
+    }
+    if package_name in aliases:
+        return aliases[package_name]
+    return package_name.replace("-", "_")
+
+
+def dependency_missing(extract_dir: Path) -> bool:
+    for package_name, _ in DEPENDENCIES:
+        module_name = dependency_module_name(package_name)
+        if not (extract_dir / module_name).exists():
+            return True
+    return not dependency_marker_path(extract_dir).exists()
+
+
+def download_dependency_wheel(package_name: str, version: str, destination: Path) -> None:
+    metadata_url = f"https://pypi.org/pypi/{package_name}/{version}/json"
+    request = Request(metadata_url, headers={"User-Agent": "brain-zensical-bootstrap/1.0"})
+    with urlopen(request) as response:
+        metadata = json.load(response)
+
+    candidates = [
+        file_info["url"]
+        for file_info in metadata["urls"]
+        if file_info["packagetype"] == "bdist_wheel" and file_info["filename"].endswith("none-any.whl")
+    ]
+    if not candidates:
+        raise SystemExit(f"Could not find a pure Python wheel for {package_name}=={version}.")
+
+    download_file(candidates[0], destination)
+
+
+def install_dependencies(extract_dir: Path) -> None:
+    deps_cache = CACHE_ROOT / "deps"
+    deps_cache.mkdir(parents=True, exist_ok=True)
+
+    for package_name, version in DEPENDENCIES:
+        wheel_path = deps_cache / f"{package_name}-{version}.whl"
+        if not wheel_path.exists():
+            print(f"Downloading dependency {package_name}=={version}...")
+            temp_path = wheel_path.with_suffix(".download")
+            download_dependency_wheel(package_name, version, temp_path)
+            temp_path.replace(wheel_path)
+
+        with zipfile.ZipFile(wheel_path) as archive:
+            archive.extractall(extract_dir)
+
+    dependency_marker_path(extract_dir).write_text("ok\n", encoding="utf-8")
+
+
+def replace_directory(source: Path, destination: Path) -> None:
+    if not destination.exists():
+        source.replace(destination)
+        return
+
+    try:
+        shutil.rmtree(destination)
+    except PermissionError:
+        stale_dir = next_stale_path(destination)
+        destination.replace(stale_dir)
+
+    source.replace(destination)
+
+
+def prepare_runtime_paths() -> None:
+    for path, recreate in ((REPO_ROOT / ".cache", True), (REPO_ROOT / "site", False)):
+        if path.exists() and not os.access(path, os.W_OK | os.X_OK):
+            path.replace(next_stale_path(path))
+        if recreate and not path.exists():
+            path.mkdir(parents=True, exist_ok=True)
+
+
 def ensure_zensical() -> Path:
     platform_key = normalize_platform()
     asset_name = ASSETS[platform_key]
@@ -65,7 +161,7 @@ def ensure_zensical() -> Path:
     extract_dir = CACHE_ROOT / "extracted"
     marker = extract_dir / "zensical" / "__main__.py"
 
-    if marker.exists():
+    if marker.exists() and not dependency_missing(extract_dir):
         return extract_dir
 
     CACHE_ROOT.mkdir(parents=True, exist_ok=True)
@@ -86,9 +182,10 @@ def ensure_zensical() -> Path:
     with zipfile.ZipFile(wheel_path) as archive:
         archive.extractall(temp_extract_dir)
 
-    if extract_dir.exists():
-        shutil.rmtree(extract_dir)
-    temp_extract_dir.replace(extract_dir)
+    print("Installing Zensical dependencies...")
+    install_dependencies(temp_extract_dir)
+
+    replace_directory(temp_extract_dir, extract_dir)
 
     if not marker.exists():
         raise SystemExit("Zensical bootstrap completed, but the extracted package is incomplete.")
@@ -97,6 +194,7 @@ def ensure_zensical() -> Path:
 
 
 def run_zensical(arguments: list[str]) -> int:
+    prepare_runtime_paths()
     extract_dir = ensure_zensical()
     env = dict(**os_environ(), PYTHONPATH=compose_pythonpath(extract_dir))
     command = [sys.executable, "-m", "zensical", *arguments]

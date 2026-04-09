@@ -11,18 +11,18 @@
 # The site_name is shown in the page header and the browser window title
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_name
-site_name = "Documentation"
+site_name = "База знаний Cofi"
 
 # The site_description is included in the HTML head and should contain a
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "A new project generated from the default template project."
+site_description = "Внутренняя база знаний Cofi с рабочими инструкциями и операционными памятками."
 
 # The site_author attribute. This is used in the HTML head element.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_author
-site_author = "<your name here>"
+site_author = "Cofi"
 
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
@@ -44,10 +44,10 @@ Copyright &copy; 2026 The authors
 # can be defined using TOML syntax.
 #
 # Read more: https://zensical.org/docs/setup/navigation/
-# nav = [
-#   { "Get started" = "index.md" },
-#   { "Markdown in 5min" = "markdown.md" },
-# ]
+nav = [
+  { "Главная" = "index.md" },
+  { "Инструкции" = [{ "Обзор" = "instructions/index.md" }, { "Подключение к удалённому рабочему столу" = "instructions/remote-desktop.md" }] },
+]
 
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
@@ -57,7 +57,7 @@ Copyright &copy; 2026 The authors
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-#extra_css = ["stylesheets/extra.css"]
+extra_css = ["stylesheets/extra.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -93,7 +93,7 @@ Copyright &copy; 2026 The authors
 # - https://zensical.org/docs/setup/logo-and-icons/#favicon
 # - https://developer.mozilla.org/en-US/docs/Glossary/Favicon
 #
-#favicon = "images/favicon.png"
+favicon = "assets/branding/cofi-favicon.png"
 
 # Zensical supports more than 60 different languages. This means that the
 # labels and tooltips that Zensical's templates produce are translated.
@@ -108,7 +108,7 @@ Copyright &copy; 2026 The authors
 # Read more:
 # - https://zensical.org/docs/setup/language/
 #
-language = "en"
+language = "ru"
 
 # Zensical provides a number of feature toggles that change the behavior
 # of the documentation site.
@@ -254,7 +254,7 @@ features = [
 # option in the "theme" subsection. The logo must be a relative path to a file
 # in your "docs_dir", e.g., to use `docs/assets/logo.png` you would set:
 # ----------------------------------------------------------------------------
-#logo = "assets/logo.png"
+logo = "assets/branding/cofi-logo.svg"
 
 # ----------------------------------------------------------------------------
 # If you don't have a dedicated project logo, you can use a built-in icon from
@@ -274,9 +274,9 @@ features = [
 # of suitably licensed fonts. There are options for a normal text font and for
 # a monospaced font used in code blocks.
 # ----------------------------------------------------------------------------
-#[project.theme.font]
-#text = "Inter"
-#code = "Jetbrains Mono"
+[project.theme.font]
+text = "Rubik"
+code = "JetBrains Mono"
 
 # ----------------------------------------------------------------------------
 # In the "palette" subsection you can configure options for the color scheme.
@@ -288,14 +288,9 @@ features = [
 # - https://zensical.org/docs/setup/colors/
 # ----------------------------------------------------------------------------
 [[project.theme.palette]]
-scheme = "default"
-toggle.icon = "lucide/sun"
-toggle.name = "Switch to dark mode"
-
-[[project.theme.palette]]
 scheme = "slate"
-toggle.icon = "lucide/moon"
-toggle.name = "Switch to light mode"
+primary = "black"
+accent = "red"
 
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
