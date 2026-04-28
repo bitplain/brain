@@ -94,6 +94,9 @@ def dependency_missing(extract_dir: Path) -> bool:
         module_name = dependency_module_name(package_name)
         if not (extract_dir / module_name).exists():
             return True
+    # Zensical loads YAML config; wheels are platform-specific, not pure-any.
+    if not (extract_dir / "yaml").exists():
+        return True
     return not dependency_marker_path(extract_dir).exists()
 
 
@@ -128,6 +131,22 @@ def install_dependencies(extract_dir: Path) -> None:
 
         with zipfile.ZipFile(wheel_path) as archive:
             archive.extractall(extract_dir)
+
+    if not (extract_dir / "yaml").exists():
+        print("Installing PyYAML (required for zensical.toml)...")
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "-q",
+                "pyyaml",
+                "--target",
+                str(extract_dir),
+            ],
+            check=True,
+        )
 
     dependency_marker_path(extract_dir).write_text("ok\n", encoding="utf-8")
 

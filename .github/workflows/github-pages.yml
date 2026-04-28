@@ -1,0 +1,49 @@
+# Публикует статический сайт на GitHub Pages при каждом push в main
+# (в том числе после merge PR). В настройках репозитория включите:
+# Settings → Pages → Build and deployment → Source: GitHub Actions
+
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bootstrap Zensical
+        run: python3 scripts/zensical_cli.py bootstrap
+
+      - name: Build site
+        run: python3 scripts/zensical_cli.py build --clean
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
