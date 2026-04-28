@@ -2,6 +2,8 @@
 icon: lucide/shield-check
 ---
 
+<div class="kb-doc kb-doc--cofi" markdown="1">
+
 # Установка ViPNet Client на Windows
 
 <div class="article-intro">
@@ -120,4 +122,6 @@ icon: lucide/shield-check
   <span>Перезагрузка</span>
   <span><code>.dst</code></span>
   <span>Пароль</span>
+</div>
+
 </div>

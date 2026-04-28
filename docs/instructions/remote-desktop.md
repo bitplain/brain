@@ -2,6 +2,8 @@
 icon: lucide/monitor-up
 ---
 
+<div class="kb-doc kb-doc--cofi" markdown="1">
+
 # Подключение к удалённому рабочему столу
 
 <div class="article-intro">
@@ -64,4 +66,6 @@ icon: lucide/monitor-up
   <span>Ярлык RDP</span>
   <span><code>inf.co.fi\пользователь</code></span>
   <span>Пароль</span>
+</div>
+
 </div>

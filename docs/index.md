@@ -1,23 +1,25 @@
 ---
+title: База знаний Cofi
 icon: lucide/layout-dashboard
 hide:
   - navigation
   - toc
   - path
+  - footer
 ---
 
-# База знаний Cofi
+<div class="kb-home kb-home-landing kb-home--stitch" markdown="0">
 
-<div class="kb-home kb-home-landing">
+<h1 class="kb-stitch-headline">База знаний Cofi</h1>
 
-<p class="kb-intro">
+<p class="kb-intro kb-stitch-lead">
   Внутренние инструкции и памятки для повседневной работы: обзор материалов, подключение к удалённому
   рабочему столу (RDP, формат учётной записи) и установка ViPNet Client на Windows — установка,
   импорт ключей <code>.dst</code> и первый вход. Всё собрано в одном разделе «Инструкции».
 </p>
 
 <p class="kb-home-actions">
-  <a class="kb-button kb-button--primary" href="instructions/">Инструкции</a>
+  <a class="kb-button kb-button--primary kb-button--stitch-cta" href="instructions/">Инструкции</a>
 </p>
 
 </div>
