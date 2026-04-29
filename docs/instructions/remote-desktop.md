@@ -1,10 +1,12 @@
 ---
 icon: lucide/monitor-up
+hide:
+  - toc
 ---
 
-<div class="kb-doc kb-doc--cofi" markdown="1">
+<div class="kb-doc kb-doc--cofi">
 
-# Подключение к удалённому рабочему столу
+<h1 id="rdp-connect">Подключение к удалённому рабочему столу</h1>
 
 <div class="article-intro">
   Короткая памятка: где искать ярлык и что вводить при первом входе.
@@ -17,7 +19,7 @@ icon: lucide/monitor-up
   </div>
 </div>
 
-## Не перепутайте экраны
+<h2 id="rdp-screens">Не перепутайте экраны</h2>
 
 <div class="compare-grid">
   <section class="info-card info-card--soft">
@@ -36,7 +38,7 @@ icon: lucide/monitor-up
   </section>
 </div>
 
-## Быстрое подключение
+<h2 id="rdp-quick">Быстрое подключение</h2>
 
 <div class="compact-steps">
   <section class="compact-step">
@@ -56,10 +58,20 @@ icon: lucide/monitor-up
     </div>
     <div class="compact-step__body">
       <h3>2. Введите данные</h3>
-      <p>При первом запуске введите <code>inf.co.fi\пользователь</code>. Если подключались раньше, проверьте логин, введите пароль и нажмите <strong>OK</strong>.</p>
+      <p>При первом запуске введите логин в поле «Логин» (см. блок ниже — можно скопировать). Если подключались раньше, проверьте логин, введите пароль и нажмите <strong>OK</strong>.</p>
     </div>
   </section>
 </div>
+
+</div>
+
+Формат учётной записи для вставки в окно RDP:
+
+```text
+inf.co.fi\пользователь
+```
+
+<div class="kb-doc kb-doc--cofi">
 
 <div class="summary-strip">
   <span>Локальный экран</span>

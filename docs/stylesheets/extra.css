@@ -93,6 +93,150 @@ body[data-md-color-scheme="slate"]:has(.kb-home--stitch) .md-typeset .kb-button-
   box-shadow: 0 22px 50px rgba(252, 117, 117, 0.35);
 }
 
+/* Главная в стиле cofi-knowledge-base (тёмный холодный фон, карточки как в хабе инструкций) */
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) {
+  background: #0e1116 !important;
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) .md-main {
+  background: #0e1116 !important;
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) .md-header {
+  background: rgba(18, 22, 27, 0.88) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) .md-search__button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(26, 30, 37, 0.95);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) .md-search__button:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.md-content__inner:has(.kb-home--cofi) {
+  text-align: left;
+}
+
+body[data-md-color-scheme="slate"] .md-grid:has(.kb-home--cofi) {
+  max-width: min(1200px, calc(100vw - 48px));
+}
+
+.kb-home--cofi {
+  position: relative;
+  margin-block: clamp(1.25rem, 5vh, 3rem) 3rem;
+}
+
+.kb-home__ambient {
+  pointer-events: none;
+  position: absolute;
+  top: -4rem;
+  right: -5rem;
+  width: min(42rem, 90vw);
+  height: min(28rem, 50vh);
+  background: rgba(126, 182, 255, 0.06);
+  filter: blur(120px);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.kb-home__inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(75rem, 100%);
+}
+
+.kb-home__title {
+  margin: 0 0 1.25rem;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: clamp(2rem, 4.2vw, 2.625rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.kb-home__lead {
+  margin: 0 0 2.25rem;
+  max-width: 38rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: #788293;
+}
+
+.kb-home__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .kb-home__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.kb-home__card.kb-cofi__card {
+  min-height: 12.5rem;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.kb-home__card .kb-cofi__icons {
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.kb-home__card-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  min-height: 3.5rem;
+  border-radius: 1rem;
+  background: #222830;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kb-home__card-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.kb-home__card:hover .kb-home__card-chevron {
+  background: rgba(126, 182, 255, 0.12);
+  color: #a1c4f5;
+  transform: translateX(3px);
+}
+
 body[data-md-color-scheme="slate"] .md-header,
 body[data-md-color-scheme="slate"] .md-tabs {
   background: rgba(10, 10, 10, 0.92);
@@ -172,7 +316,8 @@ body[data-md-color-scheme="slate"] .md-typeset .kb-home-actions a.kb-button--pri
 
 /* Инструкции: порт cofi-knowledge-base (React + Tailwind) → статический Zensical */
 body[data-md-color-scheme="slate"]:has(.kb-cofi) .md-main,
-body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-main {
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-main,
+body[data-md-color-scheme="slate"]:has(.kb-home--cofi) .md-main {
   background: #0e1116 !important;
 }
 
@@ -181,6 +326,11 @@ body[data-md-color-scheme="slate"]:has(.kb-cofi) .md-header,
 body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-sidebar,
 body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-header {
   border-color: rgba(255, 255, 255, 0.06);
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-header {
+  background: rgba(18, 22, 27, 0.88) !important;
+  backdrop-filter: blur(12px);
 }
 
 body[data-md-color-scheme="slate"] .md-grid:has(.kb-cofi),
@@ -204,12 +354,24 @@ body[data-md-color-scheme="slate"] .md-content__inner:has(.kb-cofi) .md-typeset 
 body[data-md-color-scheme="slate"] .md-content__inner:has(.kb-doc--cofi) .kb-doc--cofi > h1 {
   margin-top: 0;
   margin-bottom: 0.75rem;
-  font-size: 1.35rem;
+  font-size: clamp(1.65rem, 3vw, 2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  line-height: 1.25;
+  line-height: 1.2;
   color: rgba(255, 255, 255, 0.95);
   border: none;
+}
+
+.md-typeset .kb-doc--cofi > h2 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0 0 0.5rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Минимализм: узкая полоса текста только здесь (не на .md-grid — иначе ломается сетка с сайдбаром и TOC). */
@@ -408,6 +570,49 @@ body[data-md-color-scheme="slate"] .md-content__inner:has(.kb-doc--cofi) .kb-doc
   background: rgba(255, 255, 255, 0.06);
   color: #dfe3eb;
   font-size: 0.84em;
+}
+
+/* Нативные крошки и блоки кода (копирование — из темы Zensical) */
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-path {
+  margin: 0 0 1.25rem;
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-path__item:not(:last-child) {
+  color: #6b7280;
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-path__link {
+  color: #9ca3af;
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-path__link:hover {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+body[data-md-color-scheme="slate"]:has(.kb-doc--cofi) .md-nav__link--active {
+  border-left: 2px solid #7eb6ff;
+  padding-left: 0.6rem;
+  margin-left: -2px;
+  background: linear-gradient(90deg, rgba(126, 182, 255, 0.12), transparent);
+  color: #a1c4f5 !important;
+}
+
+.kb-doc--cofi .md-typeset pre {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kb-doc--cofi .md-typeset pre > code {
+  background: transparent;
+}
+
+/* Блок кода между двумя фрагментами kb-doc на одной странице (см. remote-desktop) */
+body[data-md-color-scheme="slate"] .md-content__inner:has(.kb-doc--cofi) .md-typeset > .highlight {
+  max-width: min(42rem, 100%);
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
 .kb-cofi {
