@@ -918,6 +918,77 @@ body[data-md-color-scheme="slate"] .md-typeset .kb-cofi__card-desc {
   color: #788293;
 }
 
+/* Карточки скрыты из сетки, разметка сохранена (для будущего показа) */
+.kb-cofi__card--visually-hidden {
+  display: none !important;
+}
+
+/* Компактные плитки на главной */
+.kb-cofi--compact .kb-cofi__card {
+  min-height: 148px;
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.kb-cofi--compact .kb-cofi__icons {
+  min-height: 44px;
+  margin-bottom: 0.75rem;
+}
+
+.kb-cofi--compact .kb-cofi__card-title {
+  font-size: 14px;
+}
+
+.kb-cofi--compact .kb-cofi__card-desc {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.kb-cofi--compact .kb-cofi__svg {
+  transform: scale(0.88);
+  transform-origin: left top;
+}
+
+.kb-cofi--compact .kb-cofi__icon-right .kb-cofi__svg {
+  transform-origin: right top;
+}
+
+.kb-cofi--compact .kb-cofi__compound-inner .kb-cofi__svg {
+  transform-origin: left center;
+}
+
+.kb-cofi--compact .kb-cofi__compound-dot {
+  transform: scale(0.88);
+  transform-origin: bottom right;
+}
+
+.kb-cofi--compact .kb-cofi__icon-right.kb-cofi__wiki-label {
+  font-size: 10px;
+  margin-top: 0.35rem;
+  padding: 0.15rem 0.4rem;
+}
+
+.kb-cofi--compact .kb-cofi__pill {
+  font-size: 9px;
+  margin-top: 0.35rem;
+}
+
+.kb-hub-lead {
+  margin: 0 0 1.35rem;
+  max-width: 40em;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #788293;
+}
+
+.kb-doc--cofi .kb-hub-lead {
+  margin-top: 0;
+}
+
+.kb-doc--cofi .kb-hub-lead a {
+  color: #8eb4e8;
+}
+
 .kb-tile-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
